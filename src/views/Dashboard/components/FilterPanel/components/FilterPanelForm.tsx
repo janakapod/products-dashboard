@@ -9,6 +9,9 @@ interface FilterPanelFormProps {
     onFormPostSubmit?: () => void;
 }
 
+/**
+ * The form which will take care of collecting filter details
+ */
 export const FilterPanelForm = ({
     onFormPostSubmit
 }: FilterPanelFormProps) => {

@@ -9,17 +9,18 @@ interface CategoryDropdownProps {
     onChange: (value: string) => void;
 }
 
-
+/**
+ * Dropdown which will provide option to select categories
+ */
 export const CategoryDropdown = ({ selectedCategory, onChange }: CategoryDropdownProps) => {
 
     const { data: categoryData, isFetching: isCategoriesFetching, isError: isCategoriesFetchingError } = useCategoriesQuery();
 
-    const categoryOptions: SelectDropdownOption<string>[] = useMemo(() => {
-
-        return categoryData
+    const categoryOptions: SelectDropdownOption<string>[] = useMemo(() => (
+        categoryData
             ? categoryData.map((category) => ({ label: StringFormatter.formatToReadableLabel(category), value: category }))
-            : [];
-    }, [categoryData]);
+            : []
+    ), [categoryData]);
 
     return (
         <SelectDropdown

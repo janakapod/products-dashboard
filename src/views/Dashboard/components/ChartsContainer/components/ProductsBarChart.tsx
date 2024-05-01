@@ -30,6 +30,7 @@ const getBarChartOptions = (products: Product[], categoryName: string): Highchar
         },
         title: {
             text: "Products in " + categoryName,
+            align: 'left'
         },
         xAxis: {
             categories: products.map((product) => product.title),
@@ -56,12 +57,17 @@ const getBarChartOptions = (products: Product[], categoryName: string): Highchar
         ],
         legend: {
             enabled: false
+        },
+        tooltip: {
+            valueSuffix: " $"
         }
     }
 );
 
 
-
+/**
+ * Component which will show the Bar Chart for a specific Category
+ */
 export const ProductsBarChart = () => {
     const selectedCategory = useProductStore(state => state.selectedCategory);
     const selectedProducts = useProductStore(state => state.selectedProducts);

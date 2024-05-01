@@ -9,7 +9,6 @@ interface FilterPanelProps {
 
 export const FilterPanel = ({ triggerDrawerClose }: FilterPanelProps) => {
     const appName = getEnvValue(ENV_VARIABLE_NAME_APP_NAME);
-    console.log("rerenderd");
     return (<>
         <FilterPanelHeader header={appName} />
         <FilterPanelForm onFormPostSubmit={triggerDrawerClose} />

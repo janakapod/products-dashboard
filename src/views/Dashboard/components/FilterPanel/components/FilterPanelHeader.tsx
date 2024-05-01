@@ -4,6 +4,9 @@ interface FilterPanelHeaderProps {
     header?: string;
 };
 
+/**
+ * Filter Panel's header
+ */
 export const FilterPanelHeader = ({ header }: FilterPanelHeaderProps) => {
     return (<>
         <Box

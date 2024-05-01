@@ -11,6 +11,9 @@ interface ProductsDropdownProps {
     disabled?: boolean;
 }
 
+/**
+ * Products Dropdown Multi selector
+ */
 export const ProductsDropdown = ({ selectedCategory, selectedProducts, onChange, disabled }: ProductsDropdownProps) => {
 
     const { data: productsData } = useProductsUnderCategory(selectedCategory);
