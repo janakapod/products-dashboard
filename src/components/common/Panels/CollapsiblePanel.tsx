@@ -48,16 +48,14 @@ export const CollapsiblePanel = ({
     <DrawerPanelComponent triggerDrawerClose={handleDrawerClose} />
   ), [handleDrawerClose]);
 
-  const appBarSX: SxProps<Theme> = clippedDrawer ? { zIndex: (theme) => theme.zIndex.drawer + 1 } : {
-    width: { sm: `calc(100% - ${drawerWidth})` },
-    ml: { sm: drawerWidth },
-  };
-
   return (
     <Box sx={{ display: "flex" }}>
       <AppBar
         position="fixed"
-        sx={appBarSX}
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+        }}
       >
         <Toolbar>
           <IconButton
@@ -78,7 +76,7 @@ export const CollapsiblePanel = ({
 
         </Toolbar>
       </AppBar>
-      <Box component="nav" sx={{ width: { sm: drawerWidth } }}>
+      <Box component="nav" sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}>
         <Drawer
           variant="temporary"
           open={mobileOpen}
@@ -88,10 +86,10 @@ export const CollapsiblePanel = ({
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: "none", sm: "block" },
+            display: { xs: "block", sm: "none" },
             "& .MuiDrawer-paper": {
               boxSizing: "border-box",
-              width: drawerWidth,
+              width: "100%",
             },
           }}
         >

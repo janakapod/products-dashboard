@@ -6,14 +6,14 @@ import { CategoryDropdown } from "./CategoryDropdown";
 import { ProductsDropdown } from "./ProductsDropdown";
 
 interface FilterPanelFormProps {
-    onFormPostSubmit?: () => void;
+    triggerDrawerClose?: () => void;
 }
 
 /**
  * The form which will take care of collecting filter details
  */
 export const FilterPanelForm = ({
-    onFormPostSubmit
+    triggerDrawerClose
 }: FilterPanelFormProps) => {
     const isFormChanged = useRef<boolean>(false);
     const selectedCategory = useProductStore(state => state.selectedCategory);
@@ -49,16 +49,21 @@ export const FilterPanelForm = ({
             return;
         }
         setSelection(category, products);
-        onFormPostSubmit?.();
+        triggerDrawerClose?.();
         isFormChanged.current = false;
     }, [category, products]);
 
 
     const onClickClearButton = () => {
         clearSelection();
+
+        // to avoid state only changes when not commited to store
+        setCategory(undefined);
+        setProducts([]);
+
+        triggerDrawerClose?.();
         isFormChanged.current = false;
     }
-
     // useProductStore
     return (
         <Box display="flex" flexDirection="column" mt={2} px={1}>
@@ -70,6 +75,7 @@ export const FilterPanelForm = ({
                 <Button
                     type="button" variant="text" color="inherit"
                     onClick={onClickClearButton}
+                    disabled={!category}
                 >
                     Clear
                 </Button>
