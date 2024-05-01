@@ -24,7 +24,7 @@ const getPiChartOptions = (data: string[]): Highcharts.Options => (
 
                 type: "pie",
                 name: "Items",
-                data: data?.map((category) => (StringFormatter.formatToReadableLabel(category))),
+                data: data?.map((category) => ({ name: StringFormatter.formatToReadableLabel(category), y: 1 })),
 
             },
         ],
