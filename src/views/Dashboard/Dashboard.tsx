@@ -3,7 +3,6 @@ import { ChartsContainer } from "./components/ChartsContainer";
 import { FilterPanel } from "./components/FilterPanel";
 
 export const Dashboard = () => {
-
   return (
     <Panel_1_3
       panelTitle={""}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   AppBar,
   Box,
@@ -29,10 +29,10 @@ export const CollapsiblePanel = ({
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
 
-  const handleDrawerClose = () => {
+  const handleDrawerClose = useCallback(() => {
     setIsClosing(true);
     setMobileOpen(false);
-  };
+  }, []);
 
   const handleDrawerTransitionEnd = () => {
     setIsClosing(false);
@@ -44,25 +44,14 @@ export const CollapsiblePanel = ({
     }
   };
 
-  const drawerPanel = (
+  const drawerPanel = useMemo(() => (
     <DrawerPanelComponent triggerDrawerClose={handleDrawerClose} />
-  );
-
-
+  ), [handleDrawerClose]);
 
   const appBarSX: SxProps<Theme> = clippedDrawer ? { zIndex: (theme) => theme.zIndex.drawer + 1 } : {
     width: { sm: `calc(100% - ${drawerWidth})` },
     ml: { sm: drawerWidth },
   };
-
-  // const drawerSX: SxProps<Theme> = {
-  //   display: { xs: "none", sm: "block" },
-  //   "& .MuiDrawer-paper": {
-  //     boxSizing: "border-box",
-  //     width: drawerWidth,
-  //   },
-  //   // pt: clippedDrawer ? "4rem" : undefined
-  // }
 
   return (
     <Box sx={{ display: "flex" }}>
