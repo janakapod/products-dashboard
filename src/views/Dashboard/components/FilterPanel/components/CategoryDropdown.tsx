@@ -1,8 +1,8 @@
 import { useMemo } from "react";
 import { SelectDropdown } from "../../../../../components";
-import { CategoryDataResponse, SelectDropdownOption } from "../../../../../types";
-import { replace, startCase } from "lodash";
 import { useCategoriesQuery } from "../../../../../hooks";
+import { SelectDropdownOption } from "../../../../../types";
+import { StringFormatter } from "../../../../../utils";
 
 interface CategoryDropdownProps {
     selectedCategory: string;
@@ -17,7 +17,7 @@ export const CategoryDropdown = ({ selectedCategory, onChange }: CategoryDropdow
     const categoryOptions: SelectDropdownOption<string>[] = useMemo(() => {
 
         return categoryData
-            ? categoryData.map((category) => ({ label: startCase(replace(category, "-", " ")), value: category }))
+            ? categoryData.map((category) => ({ label: StringFormatter.formatToReadableLabel(category), value: category }))
             : [];
     }, [categoryData]);
 

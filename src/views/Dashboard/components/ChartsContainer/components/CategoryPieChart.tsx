@@ -1,10 +1,11 @@
+import { Typography } from "@mui/material";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
-import { useQuery } from "react-query";
-import { CategoryDataResponse, QUERY_KEY_CATEGORIES } from "../../../../../types";
-import { LoadingSpanner } from "../../../../../components";
-import { Typography } from "@mui/material";
 import { replace, startCase } from "lodash";
+import { useQuery } from "react-query";
+import { LoadingSpanner } from "../../../../../components";
+import { CategoryDataResponse, QUERY_KEY_CATEGORIES } from "../../../../../types";
+import { StringFormatter } from "../../../../../utils";
 
 
 const getPiChartOptions = (data: string[]): Highcharts.Options => (
@@ -20,7 +21,7 @@ const getPiChartOptions = (data: string[]): Highcharts.Options => (
 
                 type: "pie",
                 name: "Items",
-                data: data?.map((category) => ({ name: startCase(replace(category, "-", " ")), y: 1 })),
+                data: data?.map((category) => ({ name: StringFormatter.formatToReadableLabel(category), y: 1 })),
 
             },
         ],
@@ -35,16 +36,16 @@ export const CategoryPieChart = () => {
     const { data, error, isFetching } = useQuery<CategoryDataResponse>({ queryKey: QUERY_KEY_CATEGORIES });
 
     if (isFetching) {
-        return <LoadingSpanner />
+        return <LoadingSpanner />;
     }
 
     if (error || !data) {
-        return <Typography>An error occurred</Typography>
+        return <Typography>An error occurred</Typography>;
     }
 
 
     return (<HighchartsReact
         highcharts={Highcharts}
         options={getPiChartOptions(data)}
-    />)
+    />);
 }
