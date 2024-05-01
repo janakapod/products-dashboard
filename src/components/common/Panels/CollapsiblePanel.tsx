@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import {
   AppBar,
   Box,
@@ -11,8 +11,7 @@ import {
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
-import { CollapsiblePanelProps } from "./panel.types";
-
+import { CollapsiblePanelProps } from "../../../types";
 /**
  * CollapsiblePanel provides a collapsible panel on mobile view while providing
  * dynamic sidebar.

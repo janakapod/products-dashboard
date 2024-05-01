@@ -1,6 +1,6 @@
-import { TestChart } from "./components/TestChart";
+import { CategoryPieChart } from "./components/CategoryPieChart";
 
 
 export const ChartsContainer = () => {
-    return <TestChart />;
+    return <CategoryPieChart />;
 }

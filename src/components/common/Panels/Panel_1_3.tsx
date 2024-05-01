@@ -1,5 +1,5 @@
+import { PanelProps } from "../../../types";
 import { CollapsiblePanel } from "./CollapsiblePanel";
-import { PanelProps } from "./panel.types";
 
 const drawerWidth = "33.3%";
 
