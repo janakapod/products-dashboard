@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useProductStore } from "../../../../../store";
 import { CategoryDropdown } from "./CategoryDropdown";
 import { ProductsDropdown } from "./ProductsDropdown";
@@ -11,6 +11,7 @@ interface FilterPanelFormProps {
 export const FilterPanelForm = ({
     onFormPostSubmit
 }: FilterPanelFormProps) => {
+    const isFormChanged = useRef<boolean>(false);
     const selectedCategory = useProductStore(state => state.selectedCategory);
     const selectedProducts = useProductStore(state => state.selectedProducts);
 
@@ -31,10 +32,12 @@ export const FilterPanelForm = ({
 
     const onChangeSelectedProducts = (selectedProducts: string) => {
         setProducts(selectedProducts && selectedProducts.split(",").map(a => parseInt(a)) || []);
+        isFormChanged.current = true;
     }
 
     const onChangeSelectedCategory = (newCategory: string) => {
         setCategory(newCategory);
+        isFormChanged.current = true;
     }
 
     const onClickRunReport = useCallback(() => {
@@ -43,11 +46,13 @@ export const FilterPanelForm = ({
         }
         setSelection(category, products);
         onFormPostSubmit?.();
+        isFormChanged.current = false;
     }, [category, products]);
 
 
     const onClickClearButton = () => {
         clearSelection();
+        isFormChanged.current = false;
     }
 
     // useProductStore
@@ -86,7 +91,7 @@ export const FilterPanelForm = ({
                 <Button
                     type="button" variant="contained" fullWidth
                     onClick={onClickRunReport}
-                    disabled={!category}
+                    disabled={!isFormChanged.current}
                 >
                     Run Report
                 </Button>
